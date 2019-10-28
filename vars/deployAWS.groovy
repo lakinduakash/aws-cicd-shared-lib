@@ -27,6 +27,7 @@ def call(Map config) {
     def Product = "Product=${config.product}"
     def Version = "Version=${config.version}"
     def Environment = "Environment=${config.environment}"
+    def VpcID = "VPCID=${config.vpcId}"
     env.AWS_CREDS_FILE = "${config.awsCredsFile}"
     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: "${config.credID}"]]) {
         def AWSAccessKeyId = "AWSAccessKeyId=${env.AWS_ACCESS_KEY_ID}"
@@ -45,7 +46,8 @@ def call(Map config) {
                              AMIId,
                              Product,
                              Version,
-                             Environment]
+                             Environment,
+                             VpcID]
                     , timeoutInMinutes: 30, pollInterval: 1000)
             return outputs."${config.testEndpoint}"
         }

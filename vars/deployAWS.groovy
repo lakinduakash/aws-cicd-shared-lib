@@ -28,11 +28,11 @@ def call(Map config) {
     def Version = "Version=${config.version}"
     def Environment = "Environment=${config.environment}"
     def VpcID = "VPCID=${config.vpcId}"
+    def InternetGateway = "InternetGateway=${config.internetGateway}"
     env.AWS_CREDS_FILE = "${config.awsCredsFile}"
     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: "${config.credID}"]]) {
         def AWSAccessKeyId = "AWSAccessKeyId=${env.AWS_ACCESS_KEY_ID}"
         def AWSAccessKeySecret = "AWSAccessKeySecret=${env.AWS_SECRET_ACCESS_KEY}"
-
 
         withAWS(credentials: "${config.credID}", region: "${config.region}") {
             def outputs = cfnUpdate(stack: "${config.stackName}", file: "${config.cf}",
@@ -48,7 +48,8 @@ def call(Map config) {
                              Product,
                              Version,
                              Environment,
-                             VpcID]
+                             VpcID,
+                             InternetGateway]
                     , timeoutInMinutes: 30, pollInterval: 1000)
             return outputs."${config.testEndpoint}"
         }

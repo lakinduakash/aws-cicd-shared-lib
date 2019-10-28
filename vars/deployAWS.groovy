@@ -33,9 +33,6 @@ def call(Map config) {
         def AWSAccessKeyId = "AWSAccessKeyId=${env.AWS_ACCESS_KEY_ID}"
         def AWSAccessKeySecret = "AWSAccessKeySecret=${env.AWS_SECRET_ACCESS_KEY}"
 
-        ansiColor('xterm') {
-        echo "\u001B[31mVPC: ${config.vpcId}"
-    }
 
         withAWS(credentials: "${config.credID}", region: "${config.region}") {
             def outputs = cfnUpdate(stack: "${config.stackName}", file: "${config.cf}",

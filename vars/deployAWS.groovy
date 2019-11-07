@@ -29,6 +29,7 @@ def call(Map config) {
     def Environment = "Environment=${config.environment}"
     def VpcID = "VPCID=${config.vpcId}"
     def InternetGateway = "InternetGateway=${config.internetGateway}"
+    def JenkinsSubnet = "JenkinsSubnet=${config.jenkinsSubnet}"
     env.AWS_CREDS_FILE = "${config.awsCredsFile}"
     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: "${config.credID}"]]) {
         def AWSAccessKeyId = "AWSAccessKeyId=${env.AWS_ACCESS_KEY_ID}"
@@ -49,7 +50,8 @@ def call(Map config) {
                              Version,
                              Environment,
                              VpcID,
-                             InternetGateway]
+                             InternetGateway,
+                             JenkinsSubnet]
                     , timeoutInMinutes: 30, pollInterval: 1000)
             return outputs."${config.testEndpoint}"
         }

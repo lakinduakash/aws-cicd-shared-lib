@@ -53,7 +53,7 @@ def call(Map config) {
                              InternetGateway,
                              JenkinsSubnet]
                     , timeoutInMinutes: 30, pollInterval: 1000)
-            return outputs."${config.testEndpoint}"
+            return outputs.EFSID
         }
     }
 }

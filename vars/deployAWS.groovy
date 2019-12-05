@@ -53,7 +53,7 @@ def call(Map config) {
                              VpcID,
                              InternetGateway,
                              JenkinsSubnet,
-                             TransitGateway]
+                             TransitGatewayId]
                     , timeoutInMinutes: 30, pollInterval: 1000)
             return outputs
         }

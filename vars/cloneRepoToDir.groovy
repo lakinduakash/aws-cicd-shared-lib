@@ -19,7 +19,7 @@
 
 def call(String repoUrl, String directory) {
     dir(directory) {
-        checkout([$class    : 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false,
+        checkout([$class    : 'GitSCM', branches: [[name: '*/*']], doGenerateSubmoduleConfigurations: false,
                   extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: repoUrl]]])
     }
 }
